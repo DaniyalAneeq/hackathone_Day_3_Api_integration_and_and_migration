@@ -27,13 +27,14 @@ const FeaturedProducts = async () => {
   price,
   priceWithoutDiscount,
   badge,
+  "slug":slug.current,
   "imageUrl":image.asset->url,
   category->{
     title,
     _id,
-    "slug":slug.current
   }
 }`);
+console.log(sanityData)
 
   return (
     <div className="max-w-7xl mx-auto flex flex-col gap-8 px-4 mb-40"> 
@@ -56,8 +57,8 @@ const FeaturedProducts = async () => {
                 <Image
                   src={item.imageUrl}
                   alt="pink sofa"
-                  layout="fill"
-                  objectFit="cover"
+                  width={400}
+                  height={400}
                   className="rounded-lg"
                 />
               </Link>
@@ -82,58 +83,6 @@ const FeaturedProducts = async () => {
           })
         }
         
-
-{/*         
-
-        <div className="bg-white rounded-lg p-4 shadow-sm">
-          <div className="relative">
-            <div className="aspect-square relative w-full">
-              <Image
-                src={chairPopular}
-                alt="chair popular"
-                layout="fill"
-                objectFit="cover"
-                className="rounded-lg"
-              />
-            </div>
-          </div>
-          <div className="flex justify-between items-center mt-4">
-            <div>
-              <p className="text-[#272343] text-sm md:text-base">
-                Chair Popular
-              </p>
-              <p className="text-[#272343] font-medium text-lg">$20</p>
-            </div>
-            <button className="p-2 md:p-3 bg-gray-300 hover:bg-[#076068] rounded-lg">
-              <ShoppingCart className="w-5 h-5 text-[#272343]"/>
-            </button>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-lg p-4 shadow-sm">
-          <div className="relative">
-            <div className="aspect-square relative w-full">
-              <Image
-                src={sofa2}
-                alt="sofa2"
-                layout="fill"
-                objectFit="cover"
-                className="rounded-lg"
-              />
-            </div>
-          </div>
-          <div className="flex justify-between items-center mt-4">
-            <div>
-              <p className="text-[#272343] text-sm md:text-base">
-                Sofa
-              </p>
-              <p className="text-[#272343] font-medium text-lg">$20</p>
-            </div>
-            <button className="p-2 md:p-3 bg-gray-300 hover:bg-[#076068] rounded-lg">
-              <ShoppingCart className="w-5 h-5 text-[#272343]"/>
-            </button>
-          </div>
-        </div> */}
       </div>
     </div>
   );

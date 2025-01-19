@@ -21,6 +21,7 @@ const TopCategories = async () => {
   products,
   "slug":slug.current
 }`) 
+console.log(categoryData)
   return (
     <div className="mx-auto max-w-7xl flex flex-col gap-10 mb-40">
         <h1 className="font-inter text-[32px] leading-[35.2px] pl-5 md:pl-0 text-center lg:text-start">

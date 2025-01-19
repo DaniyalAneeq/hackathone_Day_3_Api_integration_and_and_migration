@@ -31,62 +31,28 @@ const DetailedFeature = async () => {
       <Link href="/product" className="font-inter font-bold text-[18px] leading-[21.78px] text-[#000000] underline hover:scale-110">View All</Link>
     </div>
     <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 ">
-    {
-        deatailedPage.map((item:IData,index:number)=>{
-            return(
-                <div className="flex flex-col gap-2" key={index}>
-                <div className="relative aspect-square w-full">
-                  <Image src={item.imageUrl} alt={item.title} fill className="object-cover rounded-lg"/>
-                </div>
-                <div className="flex justify-between items-center">
-                  <p className="font-inter font-normal text-base leading-[20.8px] text-[#272343]">{item.title}</p>
-                  <p className="font-inter font-bold text-sm leading-[16.94px] text-[#000000]">${item.price}</p>
-                </div>
-              </div>
-            )
-        })
-    }
-     
-
-      {/* <div className="flex flex-col gap-2">
-        <div className="relative aspect-square w-full">
-          <Image src={chair2Pro} alt="chair2Pro" fill className="object-cover rounded-lg"/>
+    {deatailedPage.map((item: IData, index: number) => (
+  <div className="flex flex-col gap-2" key={index}>
+    <div className="relative aspect-square w-full">
+      {item.imageUrl ? (
+        <Image 
+          src={item.imageUrl} 
+          alt={item.title} 
+          fill 
+          className="object-cover rounded-lg" 
+        />
+      ) : (
+        <div className="w-full h-full bg-gray-200 flex items-center justify-center rounded-lg">
+          <span>No Image</span>
         </div>
-        <div className="flex justify-between items-center">
-          <p className="font-inter font-normal text-base leading-[20.8px] text-[#272343]">Library Stool Chair</p>
-          <p className="font-inter font-bold text-sm leading-[16.94px] text-[#000000]">$99</p>
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <div className="relative aspect-square w-full">
-          <Image src={chair3Pro} alt="chair3Pro" fill className="object-cover rounded-lg"/>
-        </div>
-        <div className="flex justify-between items-center">
-          <Link href="/cart" className="font-inter font-normal text-base leading-[20.8px] text-[#272343]">Library Stool Chair</Link>
-          <p className="font-inter font-bold text-sm leading-[16.94px] text-[#000000]">$99</p>
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <div className="relative aspect-square w-full">
-          <Image src={chair4Pro} alt="chair4Pro" fill className="object-cover rounded-lg"/>
-        </div>
-        <div className="flex justify-between items-center">
-          <p className="font-inter font-normal text-base leading-[20.8px] text-[#272343]">Library Stool Chair</p>
-          <p className="font-inter font-bold text-sm leading-[16.94px] text-[#000000]">$99</p>
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <div className="relative aspect-square w-full">
-          <Image src={chair5Pro} alt="chair5Pro" fill className="object-cover rounded-lg"/>
-        </div>
-        <div className="flex justify-between items-center">
-          <p className="font-inter font-normal text-base leading-[20.8px] text-[#272343]">Library Stool Chair</p>
-          <p className="font-inter font-bold text-sm leading-[16.94px] text-[#000000]">$99</p>
-        </div>
-      </div> */}
+      )}
+    </div>
+    <div className="flex justify-between items-center">
+      <p className="font-inter font-normal text-base leading-[20.8px] text-[#272343]">{item.title}</p>
+      <p className="font-inter font-bold text-sm leading-[16.94px] text-[#000000]">${item.price}</p>
+    </div>
+  </div>
+))}
     </div>
   </div>
   </div>
