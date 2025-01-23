@@ -74,9 +74,11 @@ console.log(sanityData)
                 <p className="text-[#9A9CAA] line-through text-sm">${item.priceWithoutDiscount}</p>
               </div>
             </div>
+            <Link href={`/shop/${item.slug}`}>
             <button className="p-2 md:p-3 bg-gray-300 hover:bg-[#076068] rounded-lg">
               <ShoppingCart className="w-5 h-5 text-[#272343]"/>
             </button>
+            </Link>
           </div>
         </div>
             )

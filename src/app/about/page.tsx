@@ -38,7 +38,7 @@ const AboutPage = () => {
           src={oldchair}
           alt="oldchair"
           className="w-full lg:w-[672px] h-auto lg:h-[478px] object-cover"
-        />
+          />
       </div>
 
       <div className="max-w-7xl mx-auto flex flex-col items-center mt-20 lg:mt-72 gap-8 lg:gap-16">

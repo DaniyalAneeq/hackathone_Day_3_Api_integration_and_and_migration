@@ -14,12 +14,12 @@ interface IData {
 const DetailedFeature = async () => {
 
     const deatailedPage:IData[] = await client.fetch(`*[_type == "products"][0...5]{
-  _id,
-  title,
-  "imageUrl": image.asset->url,
-  "slug": slug.current,
-  price
-}
+    _id,
+    title,
+    "imageUrl": image.asset->url,
+    "slug": slug.current,
+    price
+    }
 `)
 
   return (
@@ -35,12 +35,14 @@ const DetailedFeature = async () => {
   <div className="flex flex-col gap-2" key={index}>
     <div className="relative aspect-square w-full">
       {item.imageUrl ? (
+        <Link href={`/shop/${item.slug}`} >
         <Image 
           src={item.imageUrl} 
           alt={item.title} 
           fill 
           className="object-cover rounded-lg" 
         />
+        </Link>
       ) : (
         <div className="w-full h-full bg-gray-200 flex items-center justify-center rounded-lg">
           <span>No Image</span>

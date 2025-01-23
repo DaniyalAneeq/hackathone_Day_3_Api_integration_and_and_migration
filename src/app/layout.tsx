@@ -1,39 +1,31 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+// import localFont from "next/font/local";
 import "./globals.css";
-import {Roboto} from "next/font/google";
-import {Inter} from "next/font/google";
-import {Poppins} from "next/font/google";
 import TopBar from "@/components/TopBar";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton
+} from '@clerk/nextjs'
 
 
-const roboto = Roboto({
-  weight:  ['400' , '500', '700'],
-  subsets: ['latin'],
-})
 
-const inter = Inter({
-  weight:  ['400' , '500', '700'],
-  subsets: ['latin'],
-})
 
-const poppins = Poppins({
-  weight:  '400',
-  subsets: ['latin'],
-})
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+// const geistSans = localFont({
+//   src: "./fonts/GeistVF.woff",
+//   variable: "--font-geist-sans",
+//   weight: "100 900",
+// });
+// const geistMono = localFont({
+//   src: "./fonts/GeistMonoVF.woff",
+//   variable: "--font-geist-mono",
+//   weight: "100 900",
+// });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -46,17 +38,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${roboto.className} ${inter.className} ${poppins.className} antialiased`}
-      >
-        <main>
+    <ClerkProvider>
+      <html lang="en">
+        <body>
           <TopBar/>
+          <div className="flex justify-end mt-4 sticky max-w-7xl mx-auto z-50 top-2">
+          <SignedOut>
+            <SignInButton />
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+          </div>
           <Navbar/>
           {children}
           <Footer/>
-        </main>
-      </body>
-    </html>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

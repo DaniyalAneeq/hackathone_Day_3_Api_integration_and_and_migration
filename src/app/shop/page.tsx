@@ -16,7 +16,7 @@ interface ICatData {
       };
 }
 
-const TopCategories = async () => {
+const Categories = async () => {
 
 const categoryData:ICatData[] = await client.fetch(`*[_type == "products"]{
   _id,
@@ -33,7 +33,7 @@ const categoryData:ICatData[] = await client.fetch(`*[_type == "products"]{
 const filteredData = [categoryData[5], categoryData[8], categoryData[14]];
   return (
     <div className="mx-auto max-w-7xl flex flex-col gap-10 mb-40">
-        <h1 className="font-inter text-[32px] leading-[35.2px] pl-5 md:pl-0 text-center lg:text-start">
+        <h1 className="font-inter text-[32px] leading-[35.2px] pl-5 md:pl-0 text-center lg:text-start font-bold">
             Top categories
         </h1>
         <div className="flex gap-4 flex-wrap xl:flex-nowrap justify-center lg:justify-normal">
@@ -65,4 +65,4 @@ const filteredData = [categoryData[5], categoryData[8], categoryData[14]];
   )
 }
 
-export default TopCategories
+export default Categories

@@ -1,123 +1,121 @@
+"use client";
+
 import Image from "next/image";
-import yellowchair from "../../../public/yellowChair.png";
-import { Heart, Trash2 } from "lucide-react";
-import seat3 from "../../../public/seat3.jpeg"
+import { useEffect, useState } from "react";
+import { AiTwotoneDelete } from "react-icons/ai";
+import { useRouter } from "next/navigation";
 
-const CartPage = () => {
-  return (
-    <div className="mx-auto max-w-7xl px-4 my-8 flex flex-col lg:flex-row gap-8 lg:gap-20">
-        <div className="flex flex-col gap-4 w-full lg:w-2/3">
-        <div className="flex flex-col lg:flex-row items-start lg:items-center w-full">
-        <div className="w-full flex flex-col gap-4">
-            <h1 className="font-inter font-medium text-xl lg:text-[22px] leading-[33px] text-[#111111]">
-                Bag
-            </h1>
-            <div className="w-full flex flex-col sm:flex-row gap-4">
-                <Image src={yellowchair} alt="yellowchair" 
-                className="object-contain"
-                width={150}
-                height={150}/>
-                <div className="flex flex-col gap-4">
-                    <h1 className="font-inter font-normal text-base leading-[20.8px] text-[#272343]">
-                    Library Stool Chair
-                    </h1>
-                    <div className="flex flex-col gap-4 lg:gap-6">
-                        <p className="font-inter font-normal text-[15px] leading-7 text-[#757575]">
-                        Ashen Slate/Cobalt Bliss
-                        </p>
-                        <div className="flex gap-4 lg:gap-6 font-inter font-normal text-sm leading-[16.94px] text-[#757575]">
-                            <p>Size L</p>
-                            <p>Quantity 1</p>
-                        </div>
-                        <div className="flex gap-4 items-center">
-                            <Heart className="cursor-pointer" width={24} height={24}/>
-                            <Trash2 className="cursor-pointer" width={24} height={24}/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-            <div className="text-[#111111] font-inter font-normal text-[15px] leading-7 flex">
-                <p>MRP:&nbsp;</p>
-                <p>$99</p>
-            </div>
-        </div>
-
-        <div className="w-full h-[2px] bg-[#E5E5E5] my-4"/>
-
-        <div className="flex flex-col lg:flex-row items-start lg:items-center w-full">
-        <div className="w-full flex flex-col gap-4">
-            <div className="w-full flex flex-col sm:flex-row gap-4">
-                <Image src={seat3} alt="seat3" 
-                className="object-contain"
-                width={150}
-                height={150}/>
-                <div className="flex flex-col gap-4">
-                    <h1 className="font-inter font-normal text-base leading-[20.8px] text-[#272343]">
-                    Library Stool Chair
-                    </h1>
-                    <div className="flex flex-col gap-4 lg:gap-6">
-                        <p className="font-inter font-normal text-[15px] leading-7 text-[#757575]">
-                        Ashen Slate/Cobalt Bliss
-                        </p>
-                        <div className="flex gap-4 lg:gap-6 font-inter font-normal text-sm leading-[16.94px] text-[#757575]">
-                            <p>Size L</p>
-                            <p>Quantity 1</p>
-                        </div>
-                        <div className="flex gap-4 items-center">
-                            <Heart className="cursor-pointer" width={24} height={24}/>
-                            <Trash2 className="cursor-pointer" width={24} height={24}/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-            <div className="text-[#111111] font-inter font-normal text-[15px] leading-7 flex">
-                <p>MRP:&nbsp;</p>
-                <p>$99</p>
-            </div>
-        </div>
-        </div>
-        <div className="w-full lg:w-1/3 flex flex-col gap-6 h-fit">
-            <h1 className="font-inter font-medium text-xl lg:text-[21px] leading-[33px] text-[#111111]">
-            Summary
-            </h1>
-            <div className="flex flex-col gap-2">
-                <div className="flex justify-between items-center">
-                    <p className="font-inter font-normal text-[15px] leading-7 text-[#111111]">
-                    Subtotal
-                    </p>
-                    <p className="font-inter font-medium text-sm leading-6 text-[#111111]">
-                    $198.00
-                    </p>
-                </div>
-
-                <div className="flex justify-between items-center gap-4">
-                    <p className="font-inter font-normal text-[15px] leading-7 text-[#111111]">
-                    Estimated Delivery & Handling
-                    </p>
-                    <p className="font-inter font-medium text-sm leading-6 text-[#111111]">
-                    Free
-                    </p>
-                </div>
-            </div>
-            <div className="bg-[#E5E5E5] w-full h-[2px]"/>
-            <div className="flex justify-between items-center">
-                    <p className="font-inter font-normal text-[15px] leading-7 text-[#111111]">
-                    Total
-                    </p>
-                    <p className="font-inter font-medium text-sm leading-6 text-[#111111]">
-                    $198.00
-                    </p>
-                </div>
-                    <div className="bg-[#E5E5E5] w-full h-[2px]"/>
-
-                    <button className="w-full py-[18px] px-4 bg-[#029FAE] hover:bg-[#15727a] rounded-[30px] font-inter font-medium text-[15px] leading-6 text-white">
-                        Member Checkout
-                    </button>
-        </div>
-    </div>
-  )
+interface CartItem {
+  title: string;
+  price: number;
+  quantity: number;
+  imageUrl?: string; 
 }
 
-export default CartPage
+export default function CartPage() {
+  const [cart, setCart] = useState<{ [key: string]: CartItem }>({});
+  const router = useRouter();
+
+ 
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem("cart") || "{}");
+    setCart(storedCart);
+  }, []);
+
+  // Delete cart item functionality
+  const handleDelete = (title: string) => {
+    const updatedCart = { ...cart };
+    delete updatedCart[title];
+
+    // Update state and localStorage
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+    // Notify TopBar to update the cart count
+    window.dispatchEvent(new Event("cartUpdated"));
+  };
+
+  // Handle checkout
+  const handleCheckout = () => {
+    // Store the cart items in localStorage before navigating
+    localStorage.setItem("checkoutCart", JSON.stringify(cart));
+
+    // Navigate to the Checkout component
+    router.push("/checkout");
+  };
+
+  return (
+    <div className="container mx-auto px-4 max-w-7xl py-8">
+      <h1 className="text-3xl font-bold mb-6">Your Cart</h1>
+
+      {Object.keys(cart).length > 0 ? (
+        <div className="space-y-6">
+          {Object.keys(cart).map((key) => {
+            const item = cart[key];
+            return (
+              <div
+                key={key}
+                className="flex items-center justify-between bg-gray-100 p-4 rounded-lg shadow-sm"
+              >
+                <div className="flex items-center gap-4">
+                  {/* Product Image */}
+                  {item.imageUrl ? (
+                    <Image
+                      src={item.imageUrl}
+                      alt={item.title}
+                      width={100}
+                      height={100}
+                      className="w-16 h-16 object-cover rounded"
+                    />
+                  ) : (
+                    <div className="w-16 h-16 bg-gray-300 flex items-center justify-center rounded">
+                      <span>No Image</span>
+                    </div>
+                  )}
+
+                  {/* Product Details */}
+                  <div>
+                    <h2 className="text-lg font-semibold">{item.title}</h2>
+                    <p className="text-gray-600">
+                      Price: ${item.price} | Quantity: {item.quantity}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Delete Button */}
+                <button
+                  onClick={() => handleDelete(item.title)}
+                  className="text-white bg-red-500 px-4 py-2 rounded hover:bg-red-600"
+                >
+                  <div className="flex items-center gap-1">
+                    <AiTwotoneDelete />
+                    Delete
+                  </div>
+                </button>
+              </div>
+            );
+          })}
+
+          {/* Total Price */}
+          <div className="mt-6 text-xl font-bold text-gray-900">
+            Total: $
+            {Object.keys(cart).reduce(
+              (total, key) => total + cart[key].price * cart[key].quantity,
+              0
+            )}
+          </div>
+
+          {/* Checkout Button */}
+          <button
+            onClick={handleCheckout}
+            className="w-full bg-[#007580] text-white px-4 py-2 rounded hover:bg-[#007580] mt-6"
+          >
+            Check Out
+          </button>
+        </div>
+      ) : (
+        <p className="text-gray-500">Your cart is empty.</p>
+      )}
+    </div>
+  );
+}

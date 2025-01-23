@@ -14,9 +14,9 @@ import { Menu } from "lucide-react";
 
 const Navbar = () => {
   return (
-    <div className="mx-auto max-w-7xl">
+    <div className="mx-auto max-w-7xl sticky top-0 z-50 backdrop-blur-md">
       <div className="flex justify-between items-center h-[74px]">
-        <div className="md:flex gap-4 font-inter font-medium text-sm leading-[15.4px] items-center hidden md:ml-6 xl:ml-0">
+        <div className="md:flex gap-4 font-inter font-medium text-lg leading-[15.4px] items-center hidden md:ml-6 xl:ml-0">
           <Link
             href="/"
             className="text-[#007580] hover:scale-110 hover:underline"

@@ -1,9 +1,11 @@
 import { client } from "@/sanity/lib/client";
 import Image from "next/image";
+import Link from "next/link";
 
 interface IInstadata {
     _id:string;
     imageUrl:string;
+    slug:string
 }
 
 
@@ -12,6 +14,7 @@ const Instagram = async ()=>{
     const instaimg: IInstadata[] = await client.fetch(`*[_type == "products"][0...6]{
     _id,
     "imageUrl":image.asset->url,
+      "slug":slug.current
     }`)
 
     return(
@@ -43,6 +46,7 @@ const Instagram = async ()=>{
                   key={index}
                   className="relative max-w-[186px] max-h-[186px] flex-shrink-0"
                 >
+                  <Link href={`/shop/${image.slug}`} >
                   <Image
                     src={image.imageUrl}
                     alt={`product-${index}`}
@@ -51,6 +55,7 @@ const Instagram = async ()=>{
                     className="object-cover max-w-[200px] max-h-[200px]"
                     layout="responsive"
                   />
+                  </Link>
                 </div>
               )
             )}

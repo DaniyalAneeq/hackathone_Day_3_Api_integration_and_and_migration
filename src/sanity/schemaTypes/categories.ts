@@ -19,6 +19,15 @@ export const categorySchema = defineType({
             title: 'Number of Products',
             name: 'products',
             type: 'number',
-        }
+        },
+        {
+            title: 'Slug',
+            name: 'slug',
+            type: 'slug',
+            options: {
+              source: 'title',
+              maxLength: 200, // will be ignored if slugify is set
+            }
+        },
     ],
 });
